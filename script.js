@@ -27,3 +27,13 @@ let playRound = (playerSelection, computerSelection) =>{
     if (computerSelection == "paper") return "player"
   }
 }
+
+let game = () =>{
+  let playerSelection
+  for (let i = 0; i < 5 ; i++){
+    playerSelection = prompt('Type "Rock", "Paper" or "Scissors"')
+    
+    announceWinner(playRound(playerSelection, computerPlay()))
+  }
+} 
+
