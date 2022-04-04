@@ -1,0 +1,56 @@
+
+body{
+  margin: 0;
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.container{
+  display:flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 150px 0px;
+}
+
+h1{
+  text-align: center;
+}
+.result-container{
+  display: flex;
+  justify-content: center;
+}
+
+.results{
+  text-align: center;
+  color: #F9FAF8;
+  padding: 30px;
+  background-color: #1F2937;
+  border-radius: 10px;
+  min-width: 300px;
+}
+
+button{
+  width: 90px;
+  padding: 20px 0px;
+  border: 1px solid #1F2937;
+  border-radius: 10px;
+  margin:3px;
+  color: #F9FAF8;
+  background-color: #3882F6;
+}
+
+.btn-container{
+  display: flex;
+  justify-content: space-around;
+}
+
+.card{
+  background-color: #1F2937;
+  color: #F9FAF8;
+  padding: 20px 10px;
+  border: 3px solid black;
+  border-radius: 15px;
+}
+
+.score{
+  text-align: center;
+}

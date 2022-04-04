@@ -1,20 +1,32 @@
+let playerScore = 0
+let computerScore = 0
 
+const resultDiv = document.querySelector(".results")
+
+const playerScoreDisplay = document.querySelector("#playerScore")
+const computerScoreDisplay = document.querySelector("#computerScore")
+
+const computerBtns = document.querySelectorAll(".computer-btn")
+const playerBtns = document.querySelectorAll(".player-btn")
 
 let computerPlay = () =>{
-  //store possibles moves into an array
   let possiblePlays = ["rock", "paper", "scissors"] 
-  //roll a random number between 0 and 2
   let randomNumber = Math.floor(Math.random()*3)
-  //return that index of the array 
-  return possiblePlays[randomNumber]
+  let play = possiblePlays[randomNumber]
+  highlightComputerBtn(play)
+  return play
+}
+
+//show the player what the Computer chose
+let highlightComputerBtn = (play)=>{
+  computerBtns.forEach(b=>{
+    b.style.backgroundColor = "#3882F6"
+    if(b.value == play) b.style.backgroundColor="red"
+  })
 }
 
 let playRound = (playerSelection, computerSelection) =>{
-  // make playerSelection case insensitive
   playerselection = playerSelection.toLowerCase()
-  console.log("PLAYER chose: " + playerSelection.toUpperCase())
-  console.log("COMPUTER chose: " + computerSelection.toUpperCase())
-  //determine the winner and return it
   if(playerSelection == computerSelection){
     return "tie"
   }
@@ -32,29 +44,61 @@ let playRound = (playerSelection, computerSelection) =>{
   }
 }
 
-let game = () =>{
-  let playerScore = 0;
-  let computerScore = 0;
-  let playerSelection
-  let roundResult
-
-  for (let i = 0; i < 5 ; i++){
-    playerSelection = prompt('Type "Rock", "Paper" or "Scissors"')
-    roundResult=playRound(playerSelection, computerPlay())
-    if (roundResult == "player") playerScore++
-    if (roundResult == "computer") computerScore++
-    announceWinner(roundResult)
+const game = (playerSelection, computerSelection) => {
+  let roundResult = playRound(playerSelection, computerSelection)
+  announceRoundWinner(roundResult)
+  increaseScore(roundResult)
+  if(hasGameEnded()){
+    endGame()
   }
-
-  console.log("Game is over! Final Scores:")
-  console.log(`PLAYER has ${playerScore} wins`)
-  console.log(`COMPUTER has ${computerScore} wins`)
 } 
 
-let announceWinner= (winner)=>{
-  if (winner == "tie"){
-    return console.log("Its a Tie!")
-  }
-  console.log(`${winner.toUpperCase()} won!`)
-  
+const hasGameEnded = () => {
+  if(playerScore == 5 || computerScore == 5)return true
+  return false
 }
+
+const announceRoundWinner = (winner) => {
+  if (winner == "tie"){
+    return resultDiv.innerText = "It's a Tie"
+  }
+  resultDiv.innerText = `${winner.toUpperCase()} won the Round!`
+}
+
+const increaseScore = (winner) => {
+  if(winner == "player")
+  playerScoreDisplay.innerText = ++playerScore
+  if(winner == "computer") 
+  computerScoreDisplay.innerText = ++computerScore
+}
+
+const endGame = () => {
+  resultDiv.innerHTML = `${playerScore == 5? "PLAYER" : "COMPUTER"} has reached a Score of 5 and won the game! <br><br>`
+  const restartBtn = document.createElement("button")
+  restartBtn.innerText = "Restart"
+  restartBtn.addEventListener("click", restartGame)
+  resultDiv.appendChild(restartBtn)
+  togglePlayerButtons()
+}
+
+const togglePlayerButtons = () =>{
+  playerBtns.forEach( b => {
+    b.toggleAttribute("disabled")
+  })
+}
+
+const restartGame = () => {
+  playerScoreDisplay.innerText = playerScore = 0
+  computerScoreDisplay.innerText = computerScore = 0
+  highlightComputerBtn()
+  togglePlayerButtons()
+  resultDiv.innerText = `Press a button to start playing!`
+}
+
+playerBtns.forEach( b => {
+  b.addEventListener("click", (e)=>{
+    game(e.target.value, computerPlay())
+  })
+})
+
+

@@ -7,6 +7,33 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<h1>Rock Paper Scissors</h1>
+<div class="container">
+  <div class="card">
+    <h2>PLAYER</h2>
+    <div class="btn-container">
+     <button class="player-btn" value="rock">Rock</button>
+      <button class="player-btn" value="paper">Paper</button>
+      <button class="player-btn" value="scissors">Scissors</button>
+    </div>
+    <p class="score">Score: <span id="playerScore">0</span></p>
+  </div>
+  <div class="card">
+    <h2>COMUTER</h2>
+    <div class="btn-container">
+      <button class="computer-btn" value="rock" disabled>Rock</button>
+      <button class="computer-btn" value="paper" disabled>Paper</button>
+      <button class="computer-btn" value="scissors" disabled >Scissors</button>
+    </div>
+    <p class="score">Score: <span id="computerScore">0</span></p>
+  </div>
+</div>
+<div class="result-container">
+  <div class="results">
+    Press a button to start playing!
+  </div>
+</div>
+
 <script src="script.js"></script>
 </body>
 </html>
