@@ -26,7 +26,6 @@ let highlightComputerBtn = (play)=>{
 }
 
 let playRound = (playerSelection, computerSelection) =>{
-  playerselection = playerSelection.toLowerCase()
   if(playerSelection == computerSelection){
     return "tie"
   }
@@ -59,10 +58,8 @@ const hasGameEnded = () => {
 }
 
 const announceRoundWinner = (winner) => {
-  if (winner == "tie"){
-    return resultDiv.innerText = "It's a Tie"
-  }
-  resultDiv.innerText = `${winner.toUpperCase()} won the Round!`
+  if (winner == "tie") return displayInstruction("It's a Tie")
+  displayInstruction(`${winner.toUpperCase()} won the Round!`)
 }
 
 const increaseScore = (winner) => {
@@ -73,15 +70,19 @@ const increaseScore = (winner) => {
 }
 
 const endGame = () => {
-  resultDiv.innerHTML = `${playerScore == 5? "PLAYER" : "COMPUTER"} has reached a Score of 5 and won the game! <br><br>`
+  displayInstruction(`${playerScore == 5? "PLAYER" : "COMPUTER"} has won the game! <br><br>`)
+  togglePlayerButtons()
+  displayRestartBtn()
+}
+
+const displayRestartBtn = () => {
   const restartBtn = document.createElement("button")
   restartBtn.innerText = "Restart"
   restartBtn.addEventListener("click", restartGame)
   resultDiv.appendChild(restartBtn)
-  togglePlayerButtons()
 }
 
-const togglePlayerButtons = () =>{
+const togglePlayerButtons = () => {
   playerBtns.forEach( b => {
     b.toggleAttribute("disabled")
   })
@@ -92,7 +93,11 @@ const restartGame = () => {
   computerScoreDisplay.innerText = computerScore = 0
   highlightComputerBtn()
   togglePlayerButtons()
-  resultDiv.innerText = `Press a button to start playing!`
+  displayInstruction(`Press a button to start playing!`)
+}
+
+const displayInstruction  = message => {
+  resultDiv.innerHTML = message
 }
 
 playerBtns.forEach( b => {
